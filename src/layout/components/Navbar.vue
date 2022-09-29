@@ -8,6 +8,8 @@
     <!-- <breadcrumb class="breadcrumb-container" /> -->
 
     <div class="right-menu">
+      <Screenfull class="right-menu-item hover-effect"></Screenfull>
+      <ThemePicker class="right-menu-item hover-effect"></ThemePicker>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <!-- 使用vuex当中数据-方式1-直接使用 -->
@@ -34,21 +36,20 @@
               首页
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://gitee.com/shuiruohanyu/hrsaas53">
+          <a target="_blank" href="https://github.com/EvilLittleMage/EvilLittleMage">
             <el-dropdown-item>项目地址</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+      </el-dropdown></div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
+// import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 // 如何让webpack主动给我们打包之后图片的路径?通过模块导入语法
 // import imgUrl from '../../assets/common/head.jpg'
@@ -57,7 +58,7 @@ import Hamburger from '@/components/Hamburger'
 
 export default {
   components: {
-    Breadcrumb,
+    // Breadcrumb,
     Hamburger
   },
   computed: {
@@ -154,7 +155,7 @@ export default {
       height: 100%;
       font-size: 18px;
       color: #5a5e66;
-      vertical-align: text-bottom;
+      // vertical-align: text-bottom;
 
       &.hover-effect {
         cursor: pointer;

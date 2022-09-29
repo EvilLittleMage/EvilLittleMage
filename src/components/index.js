@@ -9,6 +9,8 @@ Vue.component('PageTool', PageTool)
 import PageTool from './PageTool/index.vue'
 import UploadExcel from './UploadExcel/index.vue'
 import UploadImage from './UploadImage/index.vue'
+import Screenfull from './Screenfull/index.vue'
+import ThemePicker from './ThemePicker/index.vue'
 
 export default {
   install(Vue) {
@@ -16,5 +18,7 @@ export default {
     Vue.component('PageTools', PageTool)
     Vue.component('UploadExcel', UploadExcel)
     Vue.component('UploadImage', UploadImage)
+    Vue.component('Screenfull', Screenfull)
+    Vue.component('ThemePicker', ThemePicker)
   }
 }

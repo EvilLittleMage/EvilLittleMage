@@ -65,11 +65,13 @@ import '@/mixins'
 import '@/utils/mock.js'
 
 Vue.config.productionTip = false
+import i18n from './lang'
 
 new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 })
 

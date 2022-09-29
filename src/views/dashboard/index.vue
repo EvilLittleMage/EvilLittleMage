@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard-container">
     <!-- 头部内容 -->
+    <div>{{ $i18n.t('title') }}</div>
+    <div>{{ $t('title') }}</div>
+    <button @click="$i18n.locale = $i18n.locale === 'zh' ? 'ja':'zh'">切换</button>
     <el-card class="header-card">
       <div>
         <div class="fl headL">
@@ -24,7 +27,8 @@
           <div slot="header" class="header">
             <span>工作日历</span>
           </div>
-        <!-- 放置日历组件 -->
+          <!-- 放置日历组件 -->
+          <work-calendar />
         </el-card>
         <!-- 公告 -->
         <el-card class="box-card">
@@ -122,10 +126,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import radior from './components/radior.vue'
+import WorkCalendar from './components/work-calendar.vue'
 
 export default {
   name: 'Dashboard',
-  components: { radior },
+  components: { radior, WorkCalendar },
   computed: {
     ...mapGetters([
       'name', 'avatar'

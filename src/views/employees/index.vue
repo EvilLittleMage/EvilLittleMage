@@ -168,7 +168,7 @@ import { translateListToTree } from '@/utils'
 import { pick } from 'lodash'
 import { formatdate, formatHireType } from '@/filters/index.js'
 import { getRolesList } from '@/api/settings'
-import { getEmplyeeBaseInfo, getUserBaseInfo } from '@/api/user'
+import { getEmplyeeBaseInfo} from '@/api/user'
 export default {
   name: 'Employees',
   components: {
