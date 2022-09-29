@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+// pid是parentId的简写,父id
+let list = [
+  {id: 1, name: '节点1', pid: ''},
+  {id:11, name: '节点1-1', pid: 1},
+  {id:111, name: '节点1-1-1', pid: 11},
+  {id:12, name: '节点1-2', pid: 1},
+  {id: 2, name: '节点2', pid: ''}
+]
+//转换方式1-不用递归,递归在面试当中,讲出来,为了弄懂递归,先不用递归
+//找children
+/*
+list.forEach(t=>{
+  let children = list.filter(m=> m.pid === t.id)
+  if(children.length>0){
+    t.children = children
+  }
+})
+// console.log(list)
+//找第一级的节点
+let result = list.filter(t=> t.pid === '')
+console.log(result)
+*/
+//转换方式2.1-用递归,简化写法,少传参数
+//存在的问题,访问list是全局变量,代表只能处理全局list
+/*
+function translateListToTree(pid) {
+  let arr = []
+  list.forEach(t=>{
+    if(t.pid === pid){
+      //找children
+      let children = translateListToTree(t.id)
+      if(children.length>0){
+        t.children = children
+      }
+      arr.push(t)
+    }
+  })
+  return arr
+}
+*/
+//转换方式2.2-用递归,完整写法,多传参数,避免用全局数据
+function translateListToTree(l, pid) {
+  let arr = []
+  l.forEach(t=>{
+    if(t.pid === pid){
+      //找children
+      let children = translateListToTree(l, t.id)
+      if(children.length>0){
+        t.children = children
+      }
+      arr.push(t)
+    }
+  })
+  return arr
+}
+//找第一级的节点
+let result = translateListToTree(list, '')
+console.log(result)
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/axios/0.26.0/axios.js" type="application/javascript"></script>
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/qs/6.10.3/qs.min.js" type="application/javascript"></script>
+</head>
+<body>
+
+</body>
+<script>
+//根据系统截图写接口
+//背景:后端不喜欢写文档,直接丢给一个系统,让你自己去,即使有接口文档,都是自动生成
+//产生问题:坑,不清楚
+//怎么克服问题:需要你基础很扎实
+
+//基础是否扎实,请求格式有哪些?
+//get请求哪些有哪些?
+//post请求格式有哪些?
+// 请求体和请求头的区别?
+
+//在axios当中请求格式怎么来写?
+//查看文档:
+//axios官方-http://www.axios-js.com/
+
+let request = axios.create({
+  baseURL: "https://demo-api.apipost.cn/api"
+})
+function login(data){
+  return request({
+    method: 'post',
+    url: '/demo/login',
+    data
+  })
+}
+
+async function submit(){
+  let data = {
+    mobile: '18289454846',
+    ver_code: "123456"
+  }
+  // post请求格式1-json(axios默认)
+  // let res = await login(data)
+
+  // post请求格式2-formData
+  /*
+  let formData = new FormData()
+  for(var key in data){
+    formData.append(key, data[key])
+  }
+  */
+  // post请求格式3-urlencoded
+  // 没想到后端也支持这种格式
+  // 写法1-手动拼接
+  // let res = await login(`mobile=${data.mobile}&ver_code=${data.ver_code}`)
+  // 写法2-通html5当中URLSearchParams API(不推荐,感觉有点麻烦)
+  /*
+  const params = new URLSearchParams();
+  for(var key in data){
+    params.append(key, data[key])
+  }
+  */
+  // 写法3-通过qs模块(推荐)
+  let res = await login(Qs.stringify(data))
+  console.log(res)
+}
+
+submit()
+</script>
+</html>

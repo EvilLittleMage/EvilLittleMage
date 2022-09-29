@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <img id="img" src="http://q6cu3t6jv.bkt.clouddn.com/1063705989926227968?t=1582797590950">
+</body>
+<script>
+// 当图片加载失败,给它一个默认图片
+document.getElementById('img').onload = function(){
+  console.log('加载成功')
+}
+document.getElementById('img').onerror = function(){
+  console.log('加载失败')
+  // document.getElementById('img').src = "https://img01.yzcdn.cn/vant/cat.jpeg"
+  this.src = "https://img01.yzcdn.cn/vant/cat.jpeg"
+}
+</script>
+</html>

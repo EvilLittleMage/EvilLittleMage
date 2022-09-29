@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+//数据类型:普通数据类型(值,数字,字符串,布尔,undefined) 复杂数据类型(地址,对象,数组)
+let userInfo = {}
+// console.log(userInfo === {}) //false,比较地址,每个对象的地址都是不一样的
+
+// es5
+// 采用循环
+/*
+let isEmpty = true
+for(let k in userInfo){
+  isEmpty = false
+}
+console.log(isEmpty)
+*/
+// 判断必有字段
+// console.log(userInfo.userId === undefined)
+// es6
+// 通过JSON.stringify把对象转换字符串
+// console.log(JSON.stringify(userInfo) === "{}")
+// 通过获取对象所有keys的数组
+console.log(Object.keys(userInfo).length === 0)
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component :title="title"></my-component>
+  </div>
+</body>
+<script>
+  //通过父子传参,传和显示父组件传过来标签
+  Vue.component('my-component', {
+    props: ['title'],
+    template: `
+      <div>子组件-<div v-html="title"></div></div>
+    `
+  })
+  let vm = new Vue({
+    el: '#app',
+    data() {
+      return {
+        title: '<h3>标题</h3>'
+      }
+    },
+  })
+</script>
+</html>

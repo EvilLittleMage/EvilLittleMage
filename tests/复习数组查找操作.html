@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+//普通数组
+let a = [1,2,3]
+//例如,找数组当中有没有2
+// console.log(a.includes(2))//包含
+// console.log(a.indexOf(2)!==-1)//索引值
+// console.log(a.some(t=> t===2))//判断是否有一个满足条件
+// console.log(a.find(t=>t === 2)!= undefined) //查询满足条件的第一个
+// console.log(a.findIndex(t=> t===2) !== -1) //查询满足条件的第一个的索引
+// console.log(a.filter(t=>t===2).length !== 0) //查询满足条件的所有
+
+//对象数组
+let l = [{num: 1}, {num: 2}, {num: 3}]
+//例如,找数组当中有没有2
+// console.log(l.some(t=> t.num === 2))//判断是否有一个满足条件
+// console.log(l.find(t=>t.num ===2)!=undefined)//查询满足条件的第一个
+// console.log(l.findIndex(t=> t.num === 2)!==-1)//查询满足条件的第一个的索引
+console.log(l.filter(t=>t.num===2).length!==0//)//查询满足条件的所有
+
+
+// 不可以
+// console.log(l.indexOf({num: 2})!==-1) //fase,地址
+// console.log(l.includes({num: 2})) //false,地址
+
+
+
+// console.log(2 === 2 )//普通数据类型比较值
+// console.log({num:2} === {num:2}) //false复制数据类型比较地址
+</script>
+</html>

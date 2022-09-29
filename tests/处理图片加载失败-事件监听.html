@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 在vue当中如何得到dom元素?,通过ref -->
+    <!-- 图片错误处理-方式2-通过v-on/@ -->
+    <img ref="imgRef1" src="http://q6cu3t6jv.bkt.clouddn.com/1063705989926227968?t=1582797590950" @error="onError1">
+    <img ref="imgRef2" src="http://q6cu3t6jv.bkt.clouddn.com/1063705989926227968?t=1582797590950" @error="onError2">
+  </div>
+</body>
+<script>
+  // 事件监听
+  //   优点:逻辑简单
+  //   缺点:可复用性低
+  let vm = new Vue({
+    el: '#app',
+    // 在vue当中什么时候得到dom元素?通过mounted
+    mounted() {
+      //图片错误处理-方式1-通过ref
+      /*
+      this.$refs.imgRef.onerror = ()=>{ //不可以,箭头函数本身没有this,this是上一级的this,也就是mouted它的this
+        this.src = "https://img01.yzcdn.cn/vant/cat.jpeg"
+      }
+      */
+      /*
+      this.$refs.imgRef.onerror = function(){
+        this.src = "https://img01.yzcdn.cn/vant/cat.jpeg"
+      }
+      */
+    },
+    methods: {
+      onError1(){
+        // this.src = "https://img01.yzcdn.cn/vant/cat.jpeg",不可以,在methods里面this,this指向组件本身
+        this.$refs.imgRef1.src = "https://img01.yzcdn.cn/vant/cat.jpeg"
+      },
+      onError2(){
+        // this.src = "https://img01.yzcdn.cn/vant/cat.jpeg",不可以,在methods里面this,this指向组件本身
+        this.$refs.imgRef2.src = "https://img01.yzcdn.cn/vant/cat.jpeg"
+      }
+    },
+  })
+</script>
+</html>

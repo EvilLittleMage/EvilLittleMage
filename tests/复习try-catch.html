@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  //json字符串有花括号,有key和value,key需要用"""
+  //一旦产生错误,交给浏览处理,会导致下面语句终止运行,是非常危险的
+  // es5产生错误
+  /*
+  try {
+    let str = '{name: "zs"}'//错误的
+    // let str = '{"name": "zs"}' //正确的
+    // 处理可以通过JSON.parse()产生一个错误,还有没其他方式可以产生粗我
+    // 产生错误方式1-JSON.parse,语法错误,被动产生
+    // let obj = JSON.parse(str)
+    // console.log(obj)
+    // 产生错误方式2-主动产生错误,并且throw
+    throw new Error('产生了错误')
+  } catch (error) {
+    console.log(error)
+  }
+  */
+  // es6产生错误
+  // 在promise当中产生和处理错误
+  /*
+  let p = new Promise((resolve, reject)=>{
+    // resolve('123456')
+    reject({status: 400, message: '产生了错误'})
+  })
+  p.then((data)=>{
+    console.log(data)
+  }).catch((error)=>{
+    console.log(error)
+  })
+  */
+ // 异步函数当中产生和处理错误
+ function request(){
+  return new Promise((resolve, reject)=>{
+    // resolve('123456')
+    // 通过reject产生错误
+    // reject({status: 400, message: '产生了错误'})
+    // 通过throw产生错误
+    throw new Error('产生错误')
+  })
+ }
+ // 异步函数简化promise的接收
+ async function fn(){
+   try {
+     let token = await request()
+     console.log('token', token)
+   } catch (error) {
+     console.log(error)
+   }
+ }
+ fn()
+console.log('123') //123能够输出吗?1,可以,2不可以
+
+</script>
+</html>

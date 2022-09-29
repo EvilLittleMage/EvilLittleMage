@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js"
+      type="application/javascript"
+    ></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.9/index.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.9/theme-chalk/index.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <el-card>
+        <el-form :model="form" ref="formRef" :inline="true">
+          <el-form-item label="标签名称" prop="tags">
+            <el-input v-model="form.tags"></el-input>
+          </el-form-item>
+          <el-form-item label="企业简称" prop="shortName">
+            <el-input v-model="form.shortName"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="onClear">清除</el-button>
+            <el-button type="primary" @click="onSearch">查询</el-button>
+          </el-form-item>
+        </el-form>
+        <el-tabs type="card" @tab-click="getList">
+
+          <el-tab-pane label="启用">
+            <my-list ref="myList1" :state="1" :form="form"></my-list>
+          </el-tab-pane>
+          <el-tab-pane label="禁用">
+            <my-list ref="myList2" :state="0" :form="form"></my-list>
+          </el-tab-pane>
+        </el-tabs>
+      </el-card>
+    </div>
+  </body>
+  <script>
+    /*
+抓重点
+vue项目当中
+  组件通信
+  数据
+少用组件通信,少定义数据/方法
+  组件通信,不用子组件
+  数据,少定义数据,先写方法
+组件通信
+  哪些数据放到父组件,哪些数据放到子组件
+    数据每个my-list都有的数据放到子组件
+      数据:list,page
+      方法:查询的方法
+*/
+
+    if (!localStorage.token) location.href = "./login.html";
+    const request = axios.create({
+      baseURL: "http://hmmm-api.itheima.net/",
+    });
+    function getList(params) {
+      return request({
+        url: "/companys",
+        method: "get",
+        params,
+        headers: {
+          Authorization: localStorage.token,
+        },
+      });
+    }
+    Vue.component('my-list',{
+      props: ['form','state'],
+      data(){
+        return {
+          list: [],
+          page: {
+            //分页
+            page: 1,
+            pagesize: 3,
+            total: 0,
+          }
+        }
+      },
+      methods: {
+        async search(){
+          this.page.page = 1
+          this.getList()
+        },
+        async getList() {
+          let {
+            data: { counts, items },
+          } = await getList({
+            ...this.form,
+            state: this.state,
+            ...this.page,
+          });
+          this.list = items;
+          this.page.total = counts;
+        },
+        onPageChange(val){
+          this.page.page = val
+          this.getList()
+        }
+      },
+      template: `
+        <div>
+          <el-table :data="list" border style="width: 100%">
+            <el-table-column type="index" width="50" label="序号">
+            </el-table-column>
+            <el-table-column label="企业全称" prop="company"> </el-table-column>
+            <el-table-column label="企业简称" prop="shortName"> </el-table-column>
+            <el-table-column label="标签" prop="tags"> </el-table-column>
+            <el-table-column label="状态">
+              <span slot-scope="{row}">{{row.state ===1 ? '启动': '禁用'}}</span></span>
+            </el-table-column>
+          </el-table>
+          <el-row type="flex" justify="end">
+            <el-pagination
+              layout="prev, pager, next"
+              :total="page.total"
+              :current-page="page.page"
+              :page-size="page.pagesize"
+              @current-change="onPageChange"
+            >
+            </el-pagination>
+          </el-row>
+        </div>
+      `
+    })
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          form: {
+            tags: undefined,
+            shortName: undefined,
+          } //搜索表单
+        };
+      },
+      mounted() {
+        this.getList()
+      },
+      methods: {
+        getList(){
+          this.$refs.myList1.getList()
+          this.$refs.myList2.getList()
+        },
+        onSearch(){
+          this.$refs.myList1.search()
+          this.$refs.myList2.search()
+        },
+        onClear(){
+          this.$refs.formRef.resetFields()
+          this.onSearch()
+        }
+      },
+    });
+  </script>
+</html>
